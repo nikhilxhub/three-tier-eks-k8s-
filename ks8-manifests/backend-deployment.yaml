@@ -1,0 +1,43 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: api 
+  namespace: workshop 
+  labels:
+    role: api 
+    env: demo 
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      role: api 
+  template: 
+    metadata:
+      labels:
+        role: api 
+    spec:
+      containers:
+      - name: api 
+        image: ..
+        imagePullPolicy: Always
+        env:
+          - name: MONGO_CONN_STR
+            value: ...
+          - name: MONGO_USERNAME 
+            valueFrom :
+              secretKeyRef:
+                name: mongo-sec 
+                key: username 
+          - name: MONGO_PASSWORD 
+            valueFrom:
+              secretKeyRef:
+                name: mingo-sec 
+                key: password 
+        ports:
+        - containerPort: 8080
+        
