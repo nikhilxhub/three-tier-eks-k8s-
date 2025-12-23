@@ -27,7 +27,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: MONGO_CONN_STR
-            value: ...
+            value: mongodb://mongodb-svc:27017/todo
           - name: MONGO_USERNAME 
             valueFrom :
               secretKeyRef:
@@ -36,7 +36,7 @@ spec:
           - name: MONGO_PASSWORD 
             valueFrom:
               secretKeyRef:
-                name: mingo-sec 
+                name: mongo-sec 
                 key: password 
         ports:
         - containerPort: 8080
