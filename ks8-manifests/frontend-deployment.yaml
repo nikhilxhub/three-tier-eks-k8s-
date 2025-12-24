@@ -1,0 +1,26 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: frontend 
+  namespace: workshop
+  labels:
+    role: frontend
+    env: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: frontend
+      env: demo
+  template:
+    metadata:
+      labels:
+        role: frontend
+        env: demo
+    spec:
+      containers:
+      - name: frontend
+        image: ..
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5173
