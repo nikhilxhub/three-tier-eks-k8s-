@@ -108,10 +108,18 @@ To deploy this to a cloud provider like AWS (EKS), GCP (GKE), or DigitalOcean:
     kubectl apply -f ks8-manifests/
     ```
 
-6.  **Expose to Internet**:
-    - Change the frontend service type to `LoadBalancer` in `ks8-manifests/frontend-service.yaml`.
-    - Apply the change: `kubectl apply -f ks8-manifests/frontend-service.yaml`.
-    - Get the external IP: `kubectl get svc -n workshop`.
+6.  **Expose to Internet (Ingress)**:
+    This project uses an **Ingress** resource to route traffic to the frontend.
+    
+    - **Ensure you have an Ingress Controller** (like NGINX) installed in your cluster. If using Minikube: `minikube addons enable ingress`.
+    - **Apply the Ingress**:
+      ```bash
+      kubectl apply -f ks8-manifests/ingress.yaml
+      ```
+    - **Access the App**:
+      - Get the Ingress address: `kubectl get ingress -n workshop`.
+      - If running locally (Minikube), you might need `minikube tunnel` or access via the Minikube IP.
+      - If on Cloud, wait for the `ADDRESS` field to be populated with a Load Balancer IP/DNS.
 
 ---
 

@@ -4,9 +4,9 @@ metadata:
   name: api 
   namespace: workshop 
 spec: 
+  type: ClusterIP
+  selector:
+    role: api 
   ports:
   - port: 8080
-    protocol: TCP
-    type: ClusterIP
-    selector:
-      role: api 
+    protocol: TCP 
